@@ -23,11 +23,13 @@ namespace GitHub.Unity
         public event Action<IEnumerable<GitLock>> OnLocksUpdated;
         public event Action OnRepositoryInfoChanged;
 
-        public IEnumerable<GitBranch> LocalBranches => repositoryManager.LocalBranches.Values.Select(
-            x => new GitBranch(x.Name, (x.IsTracking ? (x.Remote.Value.Name + "/" + x.Name) : "[None]"), x.Name == CurrentBranch?.Name));
+        public IEnumerable<GitBranch> LocalBranches => repositoryManager?.LocalBranches.Values.Select(
+            x => new GitBranch(x.Name, (x.IsTracking ? (x.Remote.Value.Name + "/" + x.Name) : "[None]"), x.Name == CurrentBranch?.Name))
+            ?? Enumerable.Empty<GitBranch>();
 
-        public IEnumerable<GitBranch> RemoteBranches => repositoryManager.RemoteBranches.Values.SelectMany(
-            x => x.Values).Select(x => new GitBranch(x.Remote.Value.Name + "/" + x.Name, "[None]", false));
+        public IEnumerable<GitBranch> RemoteBranches => repositoryManager?.RemoteBranches.Values.SelectMany(
+            x => x.Values).Select(x => new GitBranch(x.Remote.Value.Name + "/" + x.Name, "[None]", false))
+            ?? Enumerable.Empty<GitBranch>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Repository"/> class.
