@@ -26,6 +26,8 @@ namespace GitHub.Unity
         [SerializeField] private SerializableTexture2D folderIcon = new SerializableTexture2D();
         public Texture2D FolderIcon {  get { return folderIcon.Texture; } set { folderIcon.Texture = value; } }
 
+        [SerializeField] public int RootFolderIconLevel = -1;
+
         [SerializeField] private SerializableTexture2D rootFolderIcon = new SerializableTexture2D();
         public Texture2D RootFolderIcon {  get { return rootFolderIcon.Texture; } set { rootFolderIcon.Texture = value; } }
 
@@ -385,7 +387,7 @@ namespace GitHub.Unity
             }
             else if (node.IsFolder)
             {
-                if (node.Level == 1)
+                if (node.Level == RootFolderIconLevel)
                     node.Icon = RootFolderIcon;
                 else
                     node.Icon = FolderIcon;

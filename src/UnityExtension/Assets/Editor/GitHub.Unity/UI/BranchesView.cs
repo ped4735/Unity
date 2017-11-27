@@ -139,12 +139,12 @@ namespace GitHub.Unity
             treeLocals = new Tree();
             treeLocals.ActiveNodeIcon = Styles.ActiveBranchIcon;
             treeLocals.NodeIcon = Styles.BranchIcon;
-            treeLocals.RootFolderIcon = Styles.RootFolderIcon;
             treeLocals.FolderIcon = Styles.FolderIcon;
 
             treeRemotes = new Tree();
             treeRemotes.ActiveNodeIcon = Styles.ActiveBranchIcon;
             treeRemotes.NodeIcon = Styles.BranchIcon;
+            treeRemotes.RootFolderIconLevel = 1;
             treeRemotes.RootFolderIcon = Styles.RootFolderIcon;
             treeRemotes.FolderIcon = Styles.FolderIcon;
 
