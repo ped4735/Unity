@@ -441,7 +441,9 @@ namespace GitHub.Unity
             {
                 nodeStyle.Draw(fillRect, "", false, false, false, isSelected);
                 if (IsFolder)
+                {
                     style.Draw(nodeRect, content, false, false, !IsCollapsed, isSelected);
+                }
                 else
                 {
                     style.Draw(nodeRect, content, false, false, false, isSelected);
