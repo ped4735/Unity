@@ -36,8 +36,8 @@ namespace GitHub.Unity
         [NonSerialized] private int listID = -1;
         [NonSerialized] private BranchesMode targetMode;
 
-        [SerializeField] private Tree treeLocals = new Tree();
-        [SerializeField] private Tree treeRemotes = new Tree();
+        [SerializeField] private Tree treeLocals;
+        [SerializeField] private Tree treeRemotes;
         [SerializeField] private BranchesMode mode = BranchesMode.Default;
         [SerializeField] private string newBranchName;
         [SerializeField] private Vector2 scroll;
@@ -134,19 +134,23 @@ namespace GitHub.Unity
 
         private void BuildTree()
         {
+            if (treeLocals == null)
+            {
+                treeLocals = new Tree();
+                treeLocals.ActiveNodeIcon = Styles.ActiveBranchIcon;
+                treeLocals.NodeIcon = Styles.BranchIcon;
+                treeLocals.FolderIcon = Styles.FolderIcon;
+
+                treeRemotes = new Tree();
+                treeRemotes.ActiveNodeIcon = Styles.ActiveBranchIcon;
+                treeRemotes.NodeIcon = Styles.BranchIcon;
+                treeRemotes.RootFolderIconLevel = 1;
+                treeRemotes.RootFolderIcon = Styles.RootFolderIcon;
+                treeRemotes.FolderIcon = Styles.FolderIcon;
+            }
+
             localBranches.Sort(CompareBranches);
             remoteBranches.Sort(CompareBranches);
-            treeLocals = new Tree();
-            treeLocals.ActiveNodeIcon = Styles.ActiveBranchIcon;
-            treeLocals.NodeIcon = Styles.BranchIcon;
-            treeLocals.FolderIcon = Styles.FolderIcon;
-
-            treeRemotes = new Tree();
-            treeRemotes.ActiveNodeIcon = Styles.ActiveBranchIcon;
-            treeRemotes.NodeIcon = Styles.BranchIcon;
-            treeRemotes.RootFolderIconLevel = 1;
-            treeRemotes.RootFolderIcon = Styles.RootFolderIcon;
-            treeRemotes.FolderIcon = Styles.FolderIcon;
 
             treeLocals.Load(localBranches.Cast<ITreeData>(), LocalTitle);
             treeRemotes.Load(remoteBranches.Cast<ITreeData>(), RemoteTitle);
