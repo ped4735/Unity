@@ -42,7 +42,6 @@ namespace GitHub.Unity
         [NonSerialized] private int selectionIndex;
         [NonSerialized] private bool useScrollTime;
 
-        [SerializeField] private ChangesetTreeView changesetTree = new ChangesetTreeView();
         [SerializeField] private string currentRemoteName;
         [SerializeField] private Vector2 detailsScroll;
         [SerializeField] private bool hasItemsToCommit;
@@ -61,9 +60,6 @@ namespace GitHub.Unity
             base.InitializeView(parent);
 
             selectionIndex = newSelectionIndex = -1;
-
-            changesetTree.InitializeView(this);
-            changesetTree.Readonly = true;
         }
 
         public override void OnEnable()
@@ -242,32 +238,32 @@ namespace GitHub.Unity
                 GUILayout.EndHorizontal();
 
                 // Log entry details - including changeset tree (if any changes are found)
-                if (changesetTree.Entries.Any())
-                {
-                    detailsScroll = GUILayout.BeginScrollView(detailsScroll, GUILayout.Height(250));
-                    {
-                        HistoryDetailsEntry(selection);
-
-                        GUILayout.Space(EditorGUIUtility.standardVerticalSpacing);
-                        GUILayout.Label("Files changed", EditorStyles.boldLabel);
-                        GUILayout.Space(-5);
-
-                        GUILayout.BeginHorizontal(Styles.HistoryFileTreeBoxStyle);
-                        {
-                            changesetTree.OnGUI();
-                        }
-                        GUILayout.EndHorizontal();
-
-                        GUILayout.Space(EditorGUIUtility.standardVerticalSpacing);
-                    }
-                    GUILayout.EndScrollView();
-                }
-                else
-                {
+//                if (changesetTree.Entries.Any())
+//                {
+//                    detailsScroll = GUILayout.BeginScrollView(detailsScroll, GUILayout.Height(250));
+//                    {
+//                        HistoryDetailsEntry(selection);
+//
+//                        GUILayout.Space(EditorGUIUtility.standardVerticalSpacing);
+//                        GUILayout.Label("Files changed", EditorStyles.boldLabel);
+//                        GUILayout.Space(-5);
+//
+//                        GUILayout.BeginHorizontal(Styles.HistoryFileTreeBoxStyle);
+//                        {
+//                            changesetTree.OnGUI();
+//                        }
+//                        GUILayout.EndHorizontal();
+//
+//                        GUILayout.Space(EditorGUIUtility.standardVerticalSpacing);
+//                    }
+//                    GUILayout.EndScrollView();
+//                }
+//                else
+//                {
                     detailsScroll = GUILayout.BeginScrollView(detailsScroll, GUILayout.Height(246));
                     HistoryDetailsEntry(selection);
                     GUILayout.EndScrollView();
-                }
+//                }
             }
 
             // Handle culling and selection changes at the end of the last GUI frame
@@ -284,7 +280,7 @@ namespace GitHub.Unity
 
                     if (selectionIndex >= 0)
                     {
-                        changesetTree.UpdateEntries(history[selectionIndex].Changes);
+//                        changesetTree.UpdateEntries(history[selectionIndex].Changes);
                     }
 
                     Redraw();
@@ -438,7 +434,7 @@ namespace GitHub.Unity
                 (int)
                     Mathf.Clamp(
                         historyStartIndex +
-                            (Position.height - 2f * Mathf.Min(changesetTree.Height, Position.height * MaxChangelistHeightRatio)) /
+                            (Position.height - 2f * Position.height * MaxChangelistHeightRatio) /
                                 EntryHeight + 1, 0, history.Count);
         }
 

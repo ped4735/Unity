@@ -448,11 +448,11 @@ namespace GitHub.Unity
                 nodeStyle.Draw(fillRect, "", false, false, false, isSelected);
                 if (IsFolder)
                 {
-                    style.Draw(nodeRect, content, false, false, !IsCollapsed, isSelected);
+                    style.Draw(nodeRect, content, isHover: false, isActive: false, @on: !IsCollapsed, hasKeyboardFocus: isSelected);
                 }
                 else
                 {
-                    style.Draw(nodeRect, content, false, false, false, isSelected);
+                    style.Draw(nodeRect, content, isHover: false, isActive: false, @on: false, hasKeyboardFocus: isSelected);
                 }
             }
 
