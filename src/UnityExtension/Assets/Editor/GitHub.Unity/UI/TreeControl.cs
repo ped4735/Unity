@@ -31,6 +31,7 @@ namespace GitHub.Unity
         [SerializeField] private SerializableTexture2D rootFolderIcon = new SerializableTexture2D();
         public Texture2D RootFolderIcon {  get { return rootFolderIcon.Texture; } set { rootFolderIcon.Texture = value; } }
 
+        [SerializeField] public string PathSeparator = "/";
         [SerializeField] public GUIStyle FolderStyle;
         [SerializeField] public GUIStyle TreeNodeStyle;
         [SerializeField] public GUIStyle ActiveTreeNodeStyle;
@@ -96,11 +97,11 @@ namespace GitHub.Unity
 
             foreach (var d in data)
             {
-                var parts = d.Name.Split('/');
+                var parts = d.Name.Split(new [] {PathSeparator}, StringSplitOptions.None);
                 for (int i = 0; i < parts.Length; i++)
                 {
                     var label = parts[i];
-                    var name = String.Join("/", parts, 0, i + 1);
+                    var name = String.Join(PathSeparator, parts, 0, i + 1);
                     var isFolder = i < parts.Length - 1;
                     var alreadyExists = Folders.ContainsKey(name);
                     if (!alreadyExists)
