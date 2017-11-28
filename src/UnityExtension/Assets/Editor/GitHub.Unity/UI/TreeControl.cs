@@ -11,9 +11,9 @@ namespace GitHub.Unity
     [Serializable]
     public class Tree
     {
-        [SerializeField] public float ItemHeight = EditorGUIUtility.singleLineHeight;
-        [SerializeField] public float ItemSpacing = EditorGUIUtility.standardVerticalSpacing;
-        [SerializeField] public float Indentation = 12f;
+        public static float ItemHeight { get { return EditorGUIUtility.singleLineHeight; } }
+        public static float ItemSpacing { get { return EditorGUIUtility.standardVerticalSpacing; } }
+
         [SerializeField] public Rect Margin = new Rect();
         [SerializeField] public Rect Padding = new Rect();
 
@@ -172,7 +172,7 @@ namespace GitHub.Unity
 
                 if (visible)
                 {
-                    var changed = node.Render(rect, Indentation, selectedNode == node, FolderStyle, TreeNodeStyle, ActiveTreeNodeStyle);
+                    var changed = node.Render(rect, Styles.TreeIndentation, selectedNode == node, FolderStyle, TreeNodeStyle, ActiveTreeNodeStyle);
 
                     if (node.IsFolder && changed)
                     {
@@ -446,7 +446,7 @@ namespace GitHub.Unity
 
             if (Event.current.type == EventType.repaint)
             {
-                nodeStyle.Draw(fillRect, "", false, false, false, isSelected);
+                nodeStyle.Draw(fillRect, GUIContent.none, false, false, false, isSelected);
                 if (IsFolder)
                 {
                     style.Draw(nodeRect, content, isHover: false, isActive: false, @on: !IsCollapsed, hasKeyboardFocus: isSelected);
@@ -462,7 +462,7 @@ namespace GitHub.Unity
                 var toggleRect = new Rect(nodeRect.x, nodeRect.y, style.border.horizontal, nodeRect.height);
 
                 EditorGUI.BeginChangeCheck();
-                GUI.Toggle(toggleRect, !IsCollapsed, "", GUIStyle.none);
+                GUI.Toggle(toggleRect, !IsCollapsed, GUIContent.none, GUIStyle.none);
                 changed = EditorGUI.EndChangeCheck();
             }
 
